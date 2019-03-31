@@ -56,6 +56,9 @@ def signup():
 
 @app.route('/create-acount', methods=['POST'])
 def create_account():
+    user_cursor = mongo.db.users.find_one({'username': request.form['username']})
+    if user_cursor:
+        return "Username not available!"
     user = {
         'username': request.form['username'],
         'password': request.form['password']
